@@ -34,13 +34,12 @@ script:
 - cmake . -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64
 - make
 - mv libr3_extension_x64.so r3_extension_x64.so
-- if [ ! -z "$TRAVIS_TAG" ]; then zip "R3-Extension-$TRAVIS_TAG-Linux.zip" r3_extension_x64.so;
-  fi
+- zip "R3-Extension-DAILY-Linux.zip" r3_extension_x64.so;
 deploy:
   provider: releases
   api_key:
     secure: VxwwaSWdqbZoTfuUIAmhGUuG9uDU4S43/Bu0L788Ui3sy6/MfV075bNhEqJTA09eZo404A/1SyI7397YicbxVAEtKJlYu0H3wnfh1tw+aEqVAsnyOYbRrgSAkit9RCYPBN2PKglOUOCrvMvUjuocRU4Lfi2e9TPCNhldC95tQmTggepn5eBcVOFw0vTZ3tNr3zOdu4cldfX7XrZ1iqpo0ZLts2tVEmxqcwiizFGH0jn5T+gLDme5sf9EjN8ZkhUA0y+XXYa2Jigo0gELeA/zSUXTVE+IPZGKxhpZeWANru/a4F8XovP1q/jy/XU6gUq+jbqZFQ7OfmwKTxJI8VtzBAlCgecP5qu2/b9pfAJHJKM38FLdGOUKK0vXu8dbS4vAbgeHXl6GsDc+w/8WBLAWTwniSlGEEY7N7G9b35iT7jtNcRGSWQlLpLlDdJtYe9XN1s5GuciNX4uZgaj7hrRl3edjjPbKYlhz+quwMlv1I0u5NfYnizuWyQA3PASyMEe3jVc+9COuSnKNgURzLVGC007EIQdG7AM61n6wEuqRIgv4cOjDR8t96ZZLcq9he7ljW6CtvXsEQ/FPlY093mN+/OpBoJuhTXM/cJmlPMZMzfxD4yYl80a+2cdZZG8QOMXAAr56/cCAseq47ckVIMKg7tyw17+jU07Fkp1r+VYVPbE=
-  file: "R3-Extension-$TRAVIS_TAG-Linux.zip"
+  file: "R3-Extension-DAILY-Linux.zip"
   skip_cleanup: true
   on:
     repo: Raptoer/R3-Extension
