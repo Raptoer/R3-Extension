@@ -1,46 +1,46 @@
 language: cpp
 compiler:
-  - gcc
+- gcc
 os:
-  - linux
+- linux
 matrix:
   include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-            - cmake
-            - zip
-            - unzip
-            - gcc-5-multilib
-            - g++-5-multilib
-      env:
-         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
-
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-5
+        - cmake
+        - zip
+        - unzip
+        - gcc-5-multilib
+        - g++-5-multilib
+    env:
+    - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 before_install:
-  - eval "${MATRIX_EVAL}"
+- eval "${MATRIX_EVAL}"
 install:
-  - wget https://github.com/gabime/spdlog/archive/v0.10.0.zip
-  - wget https://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-6.1.11-linux-glibc2.12-x86_64.tar.gz
-  - unzip -qq v0.10.0.zip
-  - mv spdlog-0.10.0/include/spdlog include
-  - mkdir mysql
-  - tar -zxf mysql-connector-c-6.1.11-linux-glibc2.12-x86_64.tar.gz -C mysql --strip-components=1
+- wget https://github.com/gabime/spdlog/archive/v0.10.0.zip
+- wget https://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-6.1.11-linux-glibc2.12-x86_64.tar.gz
+- unzip -qq v0.10.0.zip
+- mv spdlog-0.10.0/include/spdlog include
+- mkdir mysql
+- tar -zxf mysql-connector-c-6.1.11-linux-glibc2.12-x86_64.tar.gz -C mysql --strip-components=1
 script:
-  - sed -i "s|^SET(MYSQL64_HOME.*|SET(MYSQL64_HOME \"$PWD\/mysql\")|" build/CMakeLists.txt
-  - cd build
-  - cmake . -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64
-  - make
-  - mv libr3_extension_x64.so r3_extension_x64.so
-  - if [ ! -z "$TRAVIS_TAG" ]; then zip "R3-Extension-$TRAVIS_TAG-Linux.zip" r3_extension_x64.so; fi
+- sed -i "s|^SET(MYSQL64_HOME.*|SET(MYSQL64_HOME \"$PWD\/mysql\")|" build/CMakeLists.txt
+- cd build
+- cmake . -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64
+- make
+- mv libr3_extension_x64.so r3_extension_x64.so
+- if [ ! -z "$TRAVIS_TAG" ]; then zip "R3-Extension-$TRAVIS_TAG-Linux.zip" r3_extension_x64.so;
+  fi
 deploy:
   provider: releases
   api_key:
-    secure: "$GH_RELEASE_TOKEN"
-  file: "R3-Extension-$TRAVIS_TAG-Linux.zip"
-  skip_cleanup: true
+    secure: V6UgmgdaKCUomPJTyQNtUeUVgYfeDYpnoduyNOBrX55VcfaCqPk8mLK+csYxh+D/I2B+7v6k8HZgHYne2ldcrN7CuHeTU+tOAwHL2vgm6vZcIWkTnZfFPmH6AKxDl6pnA6BRHlvJRTlfA35BjYIjV7TcuR6UdjFl7ySuJphbtdOOLKxgz9ZSuUc6Ykm9PpgyJMiMwDVF/P87t6Dhe+/VCbIHjas9Lyzz1gBuh4pG7x38psK+8IKqrMrLmXxD2b3oIVDniEnKUiYfaEzLJn7v8Zy8DiME+oo38sM2U4Dd8ljoXHVQ4yuT9lgu3PeyfAGb8mD2RJfaDW2X4fyB9WeMFnPODPyk1PVI8iSmHfX2lhIQm5ZDUu49v+ra87sYYXAjJGd/MqTIRGQB2Q9t398anoJVl823+WcSb1Kx7/xvVbIW/hqI0Im29AuGYFumnry3GAh7CfPmuuT/GT0C3ryijbobNcTYXiG+efyFbkIHycah9uCXvuRYcOxKSwWRVP3Ee6JQ6rXEf8MstdlV/0skp4oulPFkC9q80SR5y2XjzmQliYva3aZ6se12gxKT16NvnRWRHYJdd2lZzLkzTRtDYuTGvyH+2mvVtEayECRQ1Q0cto0som3FScOc8krMyeaLnj2CAoHyLRi46DlkqvHIa7B+dF52x5lS5PlPD934Ab8=
+  file: R3-Extension-$TRAVIS_TAG-Linux.zip
   on:
-    tags: true
+    repo: Raptoer/R3-Extension
+    branch: data-refactor
