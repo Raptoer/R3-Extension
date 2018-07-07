@@ -27,7 +27,7 @@ install:
 - unzip -qq v0.10.0.zip
 - mv spdlog-0.10.0/include/spdlog include
 - mkdir mysql
-- tar -zxf mysql-connector-c-6.1.11-linux-glibc2.12-x86_32.tar.gz -C mysql --strip-components=1
+- tar -zxf mysql-connector-c-6.1.11-linux-glibc2.12-i686.tar.gz -C mysql --strip-components=1
 script:
 - sed -i "s|^SET(MYSQL32_HOME.*|SET(MYSQL32_HOME \"$PWD\/mysql\")|" build/CMakeLists.txt
 - cd build
