@@ -29,11 +29,11 @@ install:
 - mkdir mysql
 - tar -zxf mysql-connector-c-6.1.11-linux-glibc2.12-x86_64.tar.gz -C mysql --strip-components=1
 script:
-- sed -i "s|^SET(MYSQL64_HOME.*|SET(MYSQL64_HOME \"$PWD\/mysql\")|" build/CMakeLists.txt
+- sed -i "s|^SET(MYSQL32_HOME.*|SET(MYSQL32_HOME \"$PWD\/mysql\")|" build/CMakeLists.txt
 - cd build
-- cmake . -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64
+- cmake . -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32
 - make
-- mv libr3_extension_x64.so r3_extension_x64.so
+- mv libr3_extension.so r3_extension.so
 - zip "R3-Extension-DAILY-Linux.zip" r3_extension_x64.so;
 deploy:
   provider: releases
