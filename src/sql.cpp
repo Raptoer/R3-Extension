@@ -101,11 +101,12 @@ namespace {
         escapeAndAddStringToQueryWithComa(unitLauncher, query);
         escapeAndAddStringToQueryWithComa(unitData, query);
         query << missionTime << ")";
+        /*
         query << " ON DUPLICATE KEY UPDATE player_id = ";
         escapeAndAddStringToQuery(playerId, query);
         query << ", name = ";
         escapeAndAddStringToQuery(unitName, query);
-        query << ";";
+        query << ";";*/
     }
 
     void processInfantryPositionsCommand(std::ostringstream& query, const std::vector<std::string>& params) {
